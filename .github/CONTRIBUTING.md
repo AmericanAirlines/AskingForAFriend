@@ -24,13 +24,13 @@ To help you get started, we've marked some tasks with the `help-welcome` and `go
 
 ### Forking and Pull Requests
 When you're ready to start writing code, make sure you [fork](https://help.github.com/articles/fork-a-repo/) this repo and use that fork to make your changes. Once you have something worth sharing, open a [Draft Pull Request](https://github.blog/2019-02-14-introducing-draft-pull-requests/) and make sure to include a reference to the issue (e.g., `Fixes #25` at the bottom of the PR description):
-1. Use the `master` branch as your PR's base branch
+1. Use the `main` branch as your PR's base branch
 1. Make sure your PR branch is as up-to-date as possible (we'll handle merge conflicts if one arises)
 1. Fill out all fields suggested by the template, including links to issue(s) your PR addresses which will help prevent duplication of efforts (e.g., `Fixes #25` at the bottom of the PR description)
 1. If it's your first contribution, make sure your PR includes a modification to `AUTHORS.md` to include your first and last name as well as your email address _or_ your GitHub handle
 1. If you aren't ready for your changes to be merged when you open the pull request, please open a [Draft Pull Request](https://github.blog/2019-02-14-introducing-draft-pull-requests/).
 
-**Note**: if you work several issues at once, make sure they're addressed in separate PRs, on separate branches, and all have a base of `master` from this repo
+**Note**: if you work several issues at once, make sure they're addressed in separate PRs, on separate branches, and all have a base of `main` from this repo
 
 #### Attribution
 If your contribution uses code from another source, make sure you properly attribute it. Cite the source of your code where the code is used and include attribution in `ThirdPartyNotices.md`. Both of these must be present in your PR before we'll merge.
