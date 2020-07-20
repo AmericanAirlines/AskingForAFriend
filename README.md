@@ -8,7 +8,7 @@ Helping our Slack community ask questions without fear of being judged
 
 ![Screenshot](/assets/AppScreenshot.png)
 
-Try it out by clicking the lightning bolt at the bottom left of the text box in Slack and clicking `Ask question anonymously` in the list of shortcuts.
+Once installed in your workspace, try it out by clicking the lightning bolt at the bottom left of the text box in Slack and clicking `Ask question anonymously` in the list of shortcuts.
 
 ## Development
 ### Environment Variables
