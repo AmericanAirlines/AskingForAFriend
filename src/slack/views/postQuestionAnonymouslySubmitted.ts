@@ -20,7 +20,7 @@ export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArg
     const channel = state.values[channelSelectBlockId][channelSelectActionId].selected_channel;
     const question = state.values[questionBlockId][questionActionId].value;
 
-    const text = `*_Someone has a question they'd like to ask!_* :awesome: \n>${question}
+    const text = `*_Someone has a question they'd like to ask!_* :thought_balloon: \n>${question}
 If you can answer this question, post a response in a thread!`;
 
     await app.client.chat.postMessage({
