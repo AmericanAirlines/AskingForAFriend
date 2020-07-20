@@ -1,0 +1,64 @@
+/* eslint-disable camelcase */
+import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bolt';
+import { InputBlock } from '@slack/types';
+import logger from '../../logger';
+import { app } from '../../app';
+import getRequiredEnvVar from '../../utils/getRequiredEnvVar';
+
+export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArgs<ViewSubmitAction>> = async ({
+  ack,
+  body,
+  view,
+}) => {
+  try {
+    const { blocks, state } = view;
+    const channelSelectBlockId = (blocks[0] as InputBlock).block_id;
+    const channelSelectActionId = (blocks[0] as InputBlock).element.action_id;
+    const questionBlockId = (blocks[1] as InputBlock).block_id;
+    const questionActionId = (blocks[1] as InputBlock).element.action_id;
+
+    const channel = state.values[channelSelectBlockId][channelSelectActionId].selected_channel;
+    const question = state.values[questionBlockId][questionActionId].value;
+
+    const text = `*_Someone has a question they'd like to ask!_* :awesome: \n>${question}
+If you can answer this question, post a response in a thread!`;
+
+    await app.client.chat.postMessage({
+      token: getRequiredEnvVar('SLACK_TOKEN'),
+      channel,
+      text,
+    });
+    ack();
+
+    logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
+  } catch (error) {
+    ack();
+    const { trigger_id } = (body as unknown) as { [id: string]: string };
+    logger.error('Something went wrong trying to post to a channel: ', error);
+    try {
+      await app.client.views.open({
+        trigger_id,
+        token: getRequiredEnvVar('SLACK_TOKEN'),
+        view: {
+          type: 'modal',
+          title: {
+            type: 'plain_text',
+            text: 'Error',
+          },
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `:warning: unable to post question to channel.
+                \nWe're not totally sure what happened but this issue has been logged.`,
+              },
+            },
+          ],
+        },
+      });
+    } catch (err) {
+      logger.error("Something went really wrong and the error modal couldn't be opened");
+    }
+  }
+};
