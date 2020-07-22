@@ -1,3 +1,4 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://github.com/AmericanAirlines/AskingForAFriend/workflows/Build/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/AmericanAirlines/AskingForAFriend/branch/main/graph/badge.svg)](https://codecov.io/gh/AmericanAirlines/AskingForAFriend)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/AmericanAirlines/AskingForAFriend.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/AmericanAirlines/AskingForAFriend/alerts/)
