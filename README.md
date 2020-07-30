@@ -11,6 +11,9 @@ Helping our Slack community ask questions without fear of being judged
 
 Once installed in your workspace, try it out by clicking the lightning bolt at the bottom left of the text box in Slack and clicking `Ask question anonymously` in the list of shortcuts.
 
+After asking your question, it will appear like this:
+![Screenshot](/assets/PostScreenshot.png)
+
 ## Development
 ### Environment Variables
 Project environment variables should first be defined in `.env.sample` without real values for their data (that file is tracked by git). After cloning, make sure to duplicate `.env.sample` as `.env` and then fill in all required variables using the details provided in the section below.
