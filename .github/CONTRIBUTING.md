@@ -36,4 +36,4 @@ When you're ready to start writing code, make sure you [fork](https://help.githu
 If your contribution uses code from another source, make sure you properly attribute it. Cite the source of your code where the code is used and include attribution in `ThirdPartyNotices.md`. Both of these must be present in your PR before we'll merge.
 
 ## Contributor License Agreement
-By contributing to Hangar, you agree to the terms of American’s [Contributor License Agreement](https://github.com/AmericanAirlines/Contributor-License-Agreement/blob/master/CLA.md).
+By contributing to this project, you agree to the terms of American’s [Contributor License Agreement](https://github.com/AmericanAirlines/Contributor-License-Agreement/blob/master/CLA.md).
