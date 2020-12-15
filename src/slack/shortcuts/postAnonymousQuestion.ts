@@ -2,9 +2,9 @@
 import { Middleware, SlackShortcutMiddlewareArgs, SlackShortcut } from '@slack/bolt';
 import logger from '../../logger';
 import { app } from '../../app';
-import getRequiredEnvVar from '../../utils/getRequiredEnvVar';
 import { getPostAnonymousQuestionModalBlocks } from '../blocks/postAnonymousQuestion';
 import { callbackIds } from '../constants';
+import { env } from '../../env';
 
 export const postAnonymousQuestion: Middleware<SlackShortcutMiddlewareArgs<SlackShortcut>> = async ({
   shortcut,
@@ -13,7 +13,7 @@ export const postAnonymousQuestion: Middleware<SlackShortcutMiddlewareArgs<Slack
   ack();
   try {
     await app.client.views.open({
-      token: getRequiredEnvVar('SLACK_TOKEN'),
+      token: env.slackToken,
       trigger_id: shortcut.trigger_id,
       view: {
         callback_id: callbackIds.postQuestionAnonymouslySubmitted,
