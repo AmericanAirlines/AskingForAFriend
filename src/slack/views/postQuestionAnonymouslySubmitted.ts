@@ -3,7 +3,7 @@ import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bo
 import { InputBlock } from '@slack/types';
 import logger from '../../logger';
 import { app } from '../../app';
-import getRequiredEnvVar from '../../utils/getRequiredEnvVar';
+import { env } from '../../env';
 
 export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArgs<ViewSubmitAction>> = async ({
   ack,
@@ -24,7 +24,7 @@ export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArg
 If you can answer this question, post a response in a thread!`;
 
     await app.client.chat.postMessage({
-      token: getRequiredEnvVar('SLACK_TOKEN'),
+      token: env.slackToken,
       channel,
       text,
     });
@@ -38,7 +38,7 @@ If you can answer this question, post a response in a thread!`;
     try {
       await app.client.views.open({
         trigger_id,
-        token: getRequiredEnvVar('SLACK_TOKEN'),
+        token: env.slackToken,
         view: {
           type: 'modal',
           title: {

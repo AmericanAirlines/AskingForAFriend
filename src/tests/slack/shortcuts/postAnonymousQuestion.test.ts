@@ -5,11 +5,11 @@ import 'jest';
 import supertest from 'supertest';
 import { createHash } from '../utils/slack';
 import logger from '../../../logger';
-
-const signingSecret = 'Secret';
-process.env.SLACK_SIGNING_SECRET = signingSecret;
 import { receiver, app } from '../../../app';
 import { callbackIds } from '../../../slack/constants';
+import { env } from '../../../env';
+
+jest.mock('../../../env');
 
 const trigger_id = '1234';
 const mockShortcutPayload: any = {
@@ -30,7 +30,7 @@ describe('ignore action listener', () => {
 
   it('handles the shortcut and opens a modal', async () => {
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockShortcutPayload, timestamp, signingSecret);
+    const signature = createHash(mockShortcutPayload, timestamp, env.slackSigningSecret);
     await supertest(receiver.app)
       .post('/slack/events')
       .send(mockShortcutPayload)
@@ -47,7 +47,7 @@ describe('ignore action listener', () => {
 
   it("logs an error if the modal can't be opened", async () => {
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockShortcutPayload, timestamp, signingSecret);
+    const signature = createHash(mockShortcutPayload, timestamp, env.slackSigningSecret);
     viewsOpenSpy.mockRejectedValueOnce(null);
     await supertest(receiver.app)
       .post('/slack/events')

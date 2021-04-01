@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/first */
 import 'jest';
 import supertest from 'supertest';
 import { createHash } from '../utils/slack';
 import logger from '../../../logger';
-
-const signingSecret = 'Secret';
-process.env.SLACK_SIGNING_SECRET = signingSecret;
 import { receiver } from '../../../app';
 import { actionIds } from '../../../slack/constants';
+import { env } from '../../../env';
+
+jest.mock('../../../env');
 
 const mockIgnoreEvent: any = {
   type: 'block_actions',
@@ -32,7 +31,7 @@ describe('ignore action listener', () => {
 
   it('successfully ignores the issue', async () => {
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockIgnoreEvent, timestamp, signingSecret);
+    const signature = createHash(mockIgnoreEvent, timestamp, env.slackSigningSecret);
     await supertest(receiver.app)
       .post('/slack/events')
       .send(mockIgnoreEvent)

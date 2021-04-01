@@ -3,6 +3,8 @@ import 'jest';
 import supertest from 'supertest';
 import { app } from '../app';
 
+jest.mock('../env');
+
 jest.spyOn(app.client.auth, 'test').mockImplementation();
 
 describe('app', () => {

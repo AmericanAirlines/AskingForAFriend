@@ -4,15 +4,15 @@ import 'jest';
 import supertest from 'supertest';
 import { createHash } from '../utils/slack';
 import logger from '../../../logger';
-
-const signingSecret = 'Secret';
-process.env.SLACK_SIGNING_SECRET = signingSecret;
 import { app, receiver } from '../../../app';
 import {
   mockPostQuestionAnonymouslySubmission,
   selectedChannel,
   username,
 } from './postQuestionAnonymouslySubmittedData';
+import { env } from '../../../env';
+
+jest.mock('../../../env');
 
 const loggerErrorSpy = jest.spyOn(logger, 'error').mockImplementation();
 const loggerInfoSpy = jest.spyOn(logger, 'info').mockImplementation();
@@ -26,7 +26,7 @@ describe('postQuestionAnonymously view submission listener', () => {
 
   it('successfully responds, posts a question, and logs data for the question', async () => {
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, signingSecret);
+    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, env.slackSigningSecret);
     await supertest(receiver.app)
       .post('/slack/events')
       .send(mockPostQuestionAnonymouslySubmission)
@@ -47,7 +47,7 @@ describe('postQuestionAnonymously view submission listener', () => {
   it('tries to open an error modal when something goes wrong', async () => {
     postMessageSpy.mockRejectedValueOnce(null);
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, signingSecret);
+    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, env.slackSigningSecret);
     await supertest(receiver.app)
       .post('/slack/events')
       .send(mockPostQuestionAnonymouslySubmission)
@@ -66,7 +66,7 @@ describe('postQuestionAnonymously view submission listener', () => {
     postMessageSpy.mockRejectedValueOnce(null);
     viewsOpenSpy.mockRejectedValueOnce(null);
     const timestamp = new Date().valueOf();
-    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, signingSecret);
+    const signature = createHash(mockPostQuestionAnonymouslySubmission, timestamp, env.slackSigningSecret);
     await supertest(receiver.app)
       .post('/slack/events')
       .send(mockPostQuestionAnonymouslySubmission)

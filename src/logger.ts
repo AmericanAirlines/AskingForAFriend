@@ -1,7 +1,8 @@
 import * as winston from 'winston';
+import { env } from './env';
 
 // If `LOG_LEVEL` is not specified, default to `debug` for non-production or `warning` for production
-const level = process.env.LOG_LEVEL || (process.env.NODE_ENV === 'production' ? 'warning' : 'debug');
+const level = env.logLevel || (env.nodeEnv === 'production' ? 'warning' : 'debug');
 
 const simpleErrorFormat = winston.format((info) => {
   const newInfo = { ...info };
