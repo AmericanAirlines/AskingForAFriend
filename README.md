@@ -45,7 +45,7 @@ Once the above steps are finished, you'll need to connect your Slack app to your
   - Under Shortcuts, chose "_Create New Shortcut_", chose "_Global_", and use the following values:
     - Name: `Ask question anonymously`
     - Short Description: `Posts an anonymous question in the current channel`
-    - Callback ID: `postQuestionAnonymously`
+    - Callback ID: `postAnonymousQuestion`
   - Click "_Save Changes_" at the bottom
 - After clicking save, you should see a banner at the top of the page suggesting you reinstall the app; click `Reinstall`
 
