@@ -13,8 +13,8 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
   ack();
   try {
     const { blocks, state, private_metadata } = view;
-    const replyBlockId = (blocks[0] as InputBlock).block_id;
-    const replyActionId = (blocks[0] as InputBlock).element.action_id;
+    const replyBlockId = (blocks[1] as InputBlock).block_id;
+    const replyActionId = (blocks[1] as InputBlock).element.action_id;
 
     const reply = state.values[replyBlockId][replyActionId].value;
     const {
