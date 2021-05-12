@@ -21,6 +21,13 @@ export const mockPostReplyAnonymouslySubmission = {
   view: {
     blocks: [
       {
+        type: 'section',
+        text: {
+          type: 'mrkdwn',
+          text: '*Original Post*',
+        },
+      },
+      {
         type: 'input',
         block_id: keys.blockIds.question,
         label: { type: 'plain_text', text: "What's your question?", emoji: true },
