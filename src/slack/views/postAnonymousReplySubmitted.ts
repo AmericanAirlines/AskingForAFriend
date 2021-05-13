@@ -34,7 +34,7 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
         elements: [
           {
             type: 'mrkdwn',
-            text: 'This was sent *anonymously* and may not be the original poster',
+            text: 'This was sent *anonymously*',
           },
         ],
       },
