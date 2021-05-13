@@ -51,7 +51,7 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
     logger.info(`response by ${body.user.name}/${body.user.id}}: ${reply}`);
   } catch (error) {
     const { trigger_id } = (body as unknown) as { [id: string]: string };
-    logger.error('Something went wrong trying to post to a channel: ', error);
+    logger.error('Something went wrong trying to post a thread reply: ', error);
     try {
       await app.client.views.open({
         trigger_id,
