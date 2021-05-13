@@ -35,10 +35,9 @@ If you can answer this question, post a response in a thread!`;
       channel,
       user: body.user.id,
       text: `:warning: You won't be notified automatically when someone replies to this question. To get notifications from replies, follow the thread:
-      1️⃣ Hover over the thread.
-      2️⃣ Click the three dots icon.
-      3️⃣ Select Follow thread to receive notifications for all new thread replies, 
-         or Unfollow thread to stop receiving notifications.`,
+      :one: Hover over the message (mobile app: tap the message)
+      :two: Click message options (three dots)
+      :three: Select \`Follow thread\``,
     });
 
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
