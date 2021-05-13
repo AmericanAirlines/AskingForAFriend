@@ -4,6 +4,7 @@ import { callbackIds } from '../../../slack/constants';
 export const selectedChannel = 'ABCD';
 export const username = 'Someone';
 export const question = 'Testing is cool, right?';
+export const EphemeralMessage = "won't be notified";
 
 export const keys = {
   blockIds: {

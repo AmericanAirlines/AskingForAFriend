@@ -6,6 +6,7 @@ import { createHash } from '../utils/slack';
 import logger from '../../../logger';
 import { app, receiver } from '../../../app';
 import {
+  EphemeralMessage,
   mockPostQuestionAnonymouslySubmission,
   selectedChannel,
   username,
@@ -17,6 +18,7 @@ jest.mock('../../../env');
 const loggerErrorSpy = jest.spyOn(logger, 'error').mockImplementation();
 const loggerInfoSpy = jest.spyOn(logger, 'info').mockImplementation();
 const postMessageSpy = jest.spyOn(app.client.chat, 'postMessage').mockImplementation();
+const postEphemeralSpy = jest.spyOn(app.client.chat, 'postEphemeral').mockImplementation();
 const viewsOpenSpy = jest.spyOn(app.client.views, 'open').mockImplementation();
 
 describe('postQuestionAnonymously view submission listener', () => {
@@ -37,9 +39,13 @@ describe('postQuestionAnonymously view submission listener', () => {
       .expect(200);
 
     expect(postMessageSpy).toBeCalled();
+    expect(postEphemeralSpy).toBeCalled();
     const messageArgs = postMessageSpy.mock.calls[0][0];
+    const EphemeralArgs = postEphemeralSpy.mock.calls[0][0];
     expect(messageArgs.channel).toEqual(selectedChannel);
+    expect(EphemeralArgs.channel).toEqual(selectedChannel);
     expect(messageArgs.text.includes(username)).toEqual(true);
+    expect(EphemeralArgs.text.includes(EphemeralMessage)).toEqual(true);
     expect(loggerInfoSpy).toBeCalled();
     expect(viewsOpenSpy).not.toBeCalled();
   });

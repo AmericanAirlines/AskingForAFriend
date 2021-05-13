@@ -22,17 +22,27 @@ export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArg
 
     const text = `*_Someone has a question they'd like to ask!_* :thought_balloon: \n>${question}
 If you can answer this question, post a response in a thread!`;
+    ack();
 
     await app.client.chat.postMessage({
       token: env.slackToken,
       channel,
       text,
     });
-    ack();
+
+    await app.client.chat.postEphemeral({
+      token: env.slackToken,
+      channel,
+      user: body.user.id,
+      text: `Since you won't be notified when someone replies to this question, here are the steps to follow it:
+      1️⃣ Hover over the thread.
+      2️⃣ Click the three dots icon.
+      3️⃣ Select Follow thread to receive notifications for all new thread replies, 
+         or Unfollow thread to stop receiving notifications.`,
+    });
 
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
   } catch (error) {
-    ack();
     const { trigger_id } = (body as unknown) as { [id: string]: string };
     logger.error('Something went wrong trying to post to a channel: ', error);
     try {
