@@ -32,11 +32,7 @@ describe('view output utils', () => {
   it('returns undefined if a block does not have an action ID', () => {
     const mockViewOutput = {
       state: {
-        values: [
-          {
-            something: 'nothing',
-          },
-        ],
+        values: [],
       },
     } as unknown as ViewOutput;
     const viewOutputUtils = new ViewOutputUtils(mockViewOutput);
