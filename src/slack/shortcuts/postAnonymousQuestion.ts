@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* eslint-disable  import/no-cycle */
 import { Middleware, SlackShortcutMiddlewareArgs, SlackShortcut } from '@slack/bolt';
 import logger from '../../logger';
 import { app } from '../../app';
@@ -10,7 +11,7 @@ export const postAnonymousQuestion: Middleware<SlackShortcutMiddlewareArgs<Slack
   shortcut,
   ack,
 }) => {
-  ack();
+  void ack();
   try {
     await app.client.views.open({
       token: env.slackToken,

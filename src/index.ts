@@ -2,7 +2,7 @@ import { app, init } from './app';
 import { env } from './env';
 import logger from './logger';
 
-export const port = env.port || '3000';
+export const port = parseInt(env.port || '3000', 10);
 async function start(): Promise<void> {
   await init();
   await app.start(port);

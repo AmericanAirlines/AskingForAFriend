@@ -8,5 +8,5 @@ export const callbackIds = {
   postAnonymousQuestion: 'postAnonymousQuestion',
   postQuestionAnonymouslySubmitted: 'postQuestionAnonymouslySubmitted',
   postReplyAnonymously: 'postReplyAnonymously',
-  replyAnonymouslySubmitted: 'replyAnonymouslySubmitted',
+  postReplyAnonymouslySubmitted: 'postReplyAnonymouslySubmitted',
 };

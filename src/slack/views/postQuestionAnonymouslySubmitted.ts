@@ -1,4 +1,5 @@
-/* eslint-disable camelcase */
+/* eslint-disable  @typescript-eslint/naming-convention */
+/* eslint-disable  import/no-cycle */
 import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bolt';
 import { InputBlock } from '@slack/types';
 import logger from '../../logger';
@@ -28,11 +29,11 @@ If you can answer this question, post a response in a thread!`;
       channel,
       text,
     });
-    ack();
+    void ack();
 
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
   } catch (error) {
-    ack();
+    void ack();
     const { trigger_id } = (body as unknown) as { [id: string]: string };
     logger.error('Something went wrong trying to post to a channel: ', error);
     try {

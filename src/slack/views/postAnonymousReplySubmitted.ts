@@ -1,20 +1,19 @@
-/* eslint-disable camelcase */
+/* eslint-disable  @typescript-eslint/naming-convention */
 import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bolt';
 import { InputBlock, KnownBlock } from '@slack/types';
 import logger from '../../logger';
-import { app } from '../../app';
-import { env } from '../../env';
 
 export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<ViewSubmitAction>> = async ({
   ack,
   body,
   view,
+  client,
 }) => {
-  ack();
+  void ack();
   try {
     const { blocks, state, private_metadata } = view;
-    const replyBlockId = (blocks[1] as InputBlock).block_id;
-    const replyActionId = (blocks[1] as InputBlock).element.action_id;
+    const replyBlockId = (blocks[2] as InputBlock).block_id;
+    const replyActionId = (blocks[2] as InputBlock).element.action_id;
 
     const reply = state.values[replyBlockId][replyActionId].value;
     const {
@@ -40,8 +39,7 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
       },
     ];
 
-    await app.client.chat.postMessage({
-      token: env.slackToken,
+    await client.chat.postMessage({
       channel: id,
       thread_ts: message_ts,
       blocks: replyContext,
@@ -53,9 +51,8 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
     const { trigger_id } = (body as unknown) as { [id: string]: string };
     logger.error('Something went wrong trying to post a thread reply: ', error);
     try {
-      await app.client.views.open({
+      await client.views.open({
         trigger_id,
-        token: env.slackToken,
         view: {
           type: 'modal',
           title: {

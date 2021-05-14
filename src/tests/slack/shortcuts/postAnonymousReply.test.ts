@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable  @typescript-eslint/naming-convention */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable import/first */
 import 'jest';
@@ -56,7 +56,7 @@ describe('submit ticket shortcut handler', () => {
 
     const args = viewsOpenSpy.mock.calls[0][0];
     expect(args.trigger_id).toEqual(trigger_id);
-    expect(args.view.callback_id).toEqual(callbackIds.replyAnonymouslySubmitted);
+    expect(args.view.callback_id).toEqual(callbackIds.postReplyAnonymouslySubmitted);
   });
 
   it('posts a message in the thread where the shortcut was invoked with a large payload', async () => {
@@ -75,7 +75,7 @@ describe('submit ticket shortcut handler', () => {
 
     const args = viewsOpenSpy.mock.calls[0][0];
     expect(args.trigger_id).toEqual(trigger_id);
-    expect(args.view.callback_id).toEqual(callbackIds.replyAnonymouslySubmitted);
+    expect(args.view.callback_id).toEqual(callbackIds.postReplyAnonymouslySubmitted);
   });
 
   it("logs an error if the modal can't be opened", async () => {

@@ -1,3 +1,4 @@
+/* eslint-disable  import/no-cycle */
 import actions from './actions';
 import shortcuts from './shortcuts';
 import views from './views';

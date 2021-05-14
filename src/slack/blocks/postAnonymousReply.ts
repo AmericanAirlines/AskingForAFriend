@@ -1,11 +1,18 @@
 import { KnownBlock, InputBlock } from '@slack/types';
 
-export function getPostAnonymousReplyBlock(originalPost: string): KnownBlock[] {
+export function getPostAnonymousReplyViewBlocks(originalPost: string): KnownBlock[] {
+  const header: KnownBlock = {
+    type: 'header',
+    text: {
+      type: 'plain_text',
+      text: 'Original Post',
+    },
+  };
   const originalPostBlock: KnownBlock = {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `*Original Post* \n>${originalPost}`,
+      text: `${originalPost || 'The original post has no text to display'}`,
     },
   };
   const questionBlock: InputBlock = {
@@ -22,5 +29,5 @@ export function getPostAnonymousReplyBlock(originalPost: string): KnownBlock[] {
       type: 'plain_text_input',
     },
   };
-  return [originalPostBlock, questionBlock];
+  return [header, originalPostBlock, questionBlock];
 }

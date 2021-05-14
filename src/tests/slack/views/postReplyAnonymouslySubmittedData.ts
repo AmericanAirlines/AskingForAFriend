@@ -34,7 +34,7 @@ export const mockPostReplyAnonymouslySubmission = {
         element: { type: 'plain_text_input', action_id: keys.actionIds.question },
       },
     ],
-    callback_id: callbackIds.replyAnonymouslySubmitted,
+    callback_id: callbackIds.postReplyAnonymouslySubmitted,
     state: {
       values: {
         [keys.blockIds.question]: { [keys.actionIds.question]: { type: 'plain_text_input', value: question } },
