@@ -21,10 +21,17 @@ export const mockPostReplyAnonymouslySubmission = {
   view: {
     blocks: [
       {
+        type: 'header',
+        text: {
+          type: 'plain_text',
+          text: 'Original Post',
+        },
+      },
+      {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: '*Original Post*',
+          text: 'The original post goes here.',
         },
       },
       {
