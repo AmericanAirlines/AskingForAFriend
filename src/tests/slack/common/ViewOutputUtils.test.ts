@@ -24,17 +24,7 @@ describe('view output utils', () => {
   it('returns undefined when the field cannot be found', () => {
     const mockViewOutput = {
       state: {
-        values: [{}],
-      },
-    } as unknown as ViewOutput;
-    const viewOutputUtils = new ViewOutputUtils(mockViewOutput);
-    expect(viewOutputUtils.getInputValue('someUnknownActionId')).toBeUndefined();
-  });
-
-  it('returns undefined if a block does not have an action ID', () => {
-    const mockViewOutput = {
-      state: {
-        values: [],
+        values: {},
       },
     } as unknown as ViewOutput;
     const viewOutputUtils = new ViewOutputUtils(mockViewOutput);

@@ -4,7 +4,7 @@ interface BlockInputValue {
   value?: string;
   selected_option?: { value: string };
   selected_users?: string[];
-  selected_channel: string;
+  selected_channel?: string;
 }
 
 export class ViewOutputUtils {
