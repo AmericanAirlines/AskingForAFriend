@@ -1,8 +1,8 @@
 import {
-  MessageShortcut,
   SlackAction,
   SlackActionMiddlewareArgs,
   SlackEventMiddlewareArgs,
+  SlackShortcut,
   SlackShortcutMiddlewareArgs,
   SlackViewAction,
   SlackViewMiddlewareArgs,
@@ -13,20 +13,20 @@ export const makeMockActionMiddlewarePayload = <
   T extends MockMiddlewarePayload<SlackActionMiddlewareArgs<SlackAction>>,
 >(
   args: T,
-): T => args;
-
-export const makeMockMessageShortcutMiddlewarePayload = <
-  T extends MockMiddlewarePayload<SlackShortcutMiddlewareArgs<MessageShortcut>>,
->(
-  args: T,
-): T => args;
+) => args;
 
 export const makeMockEventMiddlewarePayload = <T extends MockMiddlewarePayload<SlackEventMiddlewareArgs<string>>>(
   args: T,
-): T => args;
+) => args;
 
 export const makeMockViewMiddlewarePayload = <
   T extends MockMiddlewarePayload<SlackViewMiddlewareArgs<SlackViewAction>>,
 >(
   args: T,
-): T => args;
+) => args;
+
+export const makeMockShortcutMiddlewarePayload = <
+  T extends MockMiddlewarePayload<SlackShortcutMiddlewareArgs<SlackShortcut>>,
+>(
+  args: T,
+) => args;

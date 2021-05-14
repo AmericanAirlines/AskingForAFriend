@@ -7,14 +7,13 @@ module.exports = {
     node: true,
     'jest/globals': true,
   },
-  extends: ['airbnb-typescript/base', 'prettier', 'prettier/@typescript-eslint'],
+  extends: ['airbnb-typescript/base', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
   },
   parserOptions: {
     ecmaVersion: 2018,
-    tsconfigRootDir: __dirname,
     project: './tsconfig.json',
   },
   ignorePatterns: ['node_modules', '**/*.js'],

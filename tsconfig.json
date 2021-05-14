@@ -4,7 +4,7 @@
     "target": "es6",
     "moduleResolution": "node",
     "incremental": true,
-    "outDir": "../dist",
+    "outDir": "dist",
     "esModuleInterop": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
@@ -12,9 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "lib": ["esnext", "esnext.asynciterable"],
     "resolveJsonModule": true,
-    "strict": false,
+    "strict": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["../src/**/*.ts"],
+  "include": ["src/**/*.ts"]
 }

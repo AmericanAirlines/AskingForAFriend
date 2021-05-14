@@ -1,6 +1,10 @@
 import { KnownBlock, InputBlock } from '@slack/types';
 
-export function getPostAnonymousReplyViewBlocks(originalPost: string): KnownBlock[] {
+export const postAnonymousReplyModalInputIds = {
+  reply: 'reply',
+};
+
+export function getPostAnonymousReplyViewBlocks(originalPost?: string): KnownBlock[] {
   const header: KnownBlock = {
     type: 'header',
     text: {
@@ -27,6 +31,7 @@ export function getPostAnonymousReplyViewBlocks(originalPost: string): KnownBloc
     },
     element: {
       type: 'plain_text_input',
+      action_id: postAnonymousReplyModalInputIds.reply,
     },
   };
   return [header, originalPostBlock, questionBlock];

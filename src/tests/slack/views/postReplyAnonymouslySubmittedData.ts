@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { callbackIds } from '../../../slack/constants';
 
 export const username = 'Someone';

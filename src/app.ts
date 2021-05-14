@@ -1,9 +1,8 @@
-/* eslint-disable  import/no-cycle */
 import 'dotenv/config';
 import { App, LogLevel, ExpressReceiver, AuthorizeResult } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
 import api from './api';
-import { actions, shortcuts, views } from './slack';
+import { setupSlack } from './slack';
 import { env } from './env';
 
 export const receiver = new ExpressReceiver({ signingSecret: env.slackSigningSecret });
@@ -65,9 +64,7 @@ receiver.app.use('*', (_req, res) => {
 });
 
 // Register Listeners
-actions(app);
-shortcuts(app);
-views(app);
+setupSlack(app);
 
 export const init = async (): Promise<void> => {
   // Do any async init stuff

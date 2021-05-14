@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Middleware, SlackShortcutMiddlewareArgs, MessageShortcut } from '@slack/bolt';
 import logger from '../../logger';
 import { callbackIds } from '../constants';
@@ -23,7 +22,7 @@ export const postReplyAnonymously: Middleware<SlackShortcutMiddlewareArgs<Messag
           text: 'Respond Anonymously',
         },
         blocks: getPostAnonymousReplyViewBlocks(
-          originalPost.length > 3000 ? `${originalPost.substring(0, 2000)}...` : originalPost,
+          (originalPost ?? '').length > 3000 ? `${originalPost?.substring(0, 2000)}...` : originalPost,
         ),
         submit: {
           type: 'plain_text',

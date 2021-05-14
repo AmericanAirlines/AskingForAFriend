@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/first */
 import 'jest';
 import logger from '../../../logger';
 import { makeMockMessageShortcutMiddlewarePayload } from '../../test-utils/makeMockMiddlewarePayload';
