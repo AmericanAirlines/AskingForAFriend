@@ -8,13 +8,13 @@ jest.mock('../env');
 jest.spyOn(app.client.auth, 'test').mockImplementation();
 
 describe('app', () => {
-  it('returns a 200 status code for requests to /', (done) => {
+  it('returns a 200 status code for requests to /', async () => {
     const { receiver } = require('../app');
-    supertest(receiver.app).get('/').expect(200, done);
+    await supertest(receiver.app).get('/').expect(200);
   });
 
-  it('returns a 404 status code for requests to unknown routes', (done) => {
+  it('returns a 404 status code for requests to unknown routes', async () => {
     const { receiver } = require('../app');
-    supertest(receiver.app).get('/api/wafflesRgood').expect(404, done);
+    await supertest(receiver.app).get('/api/wafflesRgood').expect(404);
   });
 });

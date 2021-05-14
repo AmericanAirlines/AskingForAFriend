@@ -38,8 +38,8 @@ describe('postQuestionAnonymously view submission listener', () => {
 
     expect(postMessageSpy).toBeCalled();
     const messageArgs = postMessageSpy.mock.calls[0][0];
-    expect(messageArgs.channel).toEqual(selectedChannel);
-    expect(messageArgs.text.includes(username)).toEqual(true);
+    expect(messageArgs?.channel).toEqual(selectedChannel);
+    expect(messageArgs?.text?.includes(username)).toEqual(true);
     expect(loggerInfoSpy).toBeCalled();
     expect(viewsOpenSpy).not.toBeCalled();
   });

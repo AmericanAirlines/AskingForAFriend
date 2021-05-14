@@ -1,5 +1,10 @@
 import { KnownBlock, InputBlock } from '@slack/types';
 
+export const postAnonymousQuestionModalInputIds = {
+  channelId: 'channelId',
+  question: 'question',
+};
+
 export function getPostAnonymousQuestionModalBlocks(): KnownBlock[] {
   const channelSelectBlock: InputBlock = {
     type: 'input',
@@ -13,6 +18,7 @@ export function getPostAnonymousQuestionModalBlocks(): KnownBlock[] {
     },
     element: {
       type: 'channels_select',
+      action_id: postAnonymousQuestionModalInputIds.channelId
     },
   };
   const questionBlock: InputBlock = {
@@ -27,6 +33,7 @@ export function getPostAnonymousQuestionModalBlocks(): KnownBlock[] {
     },
     element: {
       type: 'plain_text_input',
+      action_id: postAnonymousQuestionModalInputIds.question
     },
   };
   return [channelSelectBlock, questionBlock];
