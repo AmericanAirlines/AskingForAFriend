@@ -10,7 +10,7 @@ describe('view output utils', () => {
       state: {
         values: {
           blockId: {
-            [mockActionId]: mockValue,
+            somethingElse: mockValue,
           },
           blockId2: {
             [mockActionId]: mockValue,
