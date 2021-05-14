@@ -7,7 +7,7 @@ module.exports = {
     node: true,
     'jest/globals': true,
   },
-  extends: ['airbnb-typescript/base', 'prettier', 'prettier/@typescript-eslint'],
+  extends: ['airbnb-typescript/base', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -16,7 +16,7 @@ module.exports = {
     ecmaVersion: 2018,
     project: './tsconfig.json',
   },
-  ignorePatterns: ['node_modules', '**/*.js', 'src/migrations'],
+  ignorePatterns: ['node_modules', '**/*.js'],
   rules: {
     '@typescript-eslint/no-floating-promises': ['error'],
     'no-void': ['error', { allowAsStatement: true }],

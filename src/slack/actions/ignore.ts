@@ -5,5 +5,5 @@ export const ignore: Middleware<SlackActionMiddlewareArgs<SlackAction>> = async 
   // Anything with this action_id should be ignored
   // Ack the request and do nothing
   logger.debug('Event ignored');
-  ack();
+  void ack();
 };
