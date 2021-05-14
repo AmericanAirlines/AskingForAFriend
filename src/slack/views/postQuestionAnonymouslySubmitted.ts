@@ -1,44 +1,38 @@
 /* eslint-disable camelcase */
 import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bolt';
-import { InputBlock } from '@slack/types';
 import logger from '../../logger';
-import { app } from '../../app';
-import { env } from '../../env';
+import { ViewOutputUtils } from '../common/ViewOutputUtils';
+import { postAnonymousQuestionModalInputIds } from '../blocks/postAnonymousQuestion';
 
 export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArgs<ViewSubmitAction>> = async ({
   ack,
   body,
   view,
+  client,
 }) => {
+  void ack();
   try {
-    const { blocks, state } = view;
-    const channelSelectBlockId = (blocks[0] as InputBlock).block_id;
-    const channelSelectActionId = (blocks[0] as InputBlock).element.action_id;
-    const questionBlockId = (blocks[1] as InputBlock).block_id;
-    const questionActionId = (blocks[1] as InputBlock).element.action_id;
+    const utils = new ViewOutputUtils(view);
 
-    const channel = state.values[channelSelectBlockId][channelSelectActionId].selected_channel;
-    const question = state.values[questionBlockId][questionActionId].value;
+    const channel = utils.getInputValue(postAnonymousQuestionModalInputIds.channelId)!.selected_channel!;
+    const question = utils.getInputValue(postAnonymousQuestionModalInputIds.question)!.value!;
 
     const text = `*_Someone has a question they'd like to ask!_* :thought_balloon: \n>${question}
 If you can answer this question, post a response in a thread!`;
 
-    await app.client.chat.postMessage({
-      token: env.slackToken,
+    await client.chat.postMessage({
       channel,
       text,
     });
-    ack();
 
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
   } catch (error) {
-    ack();
-    const { trigger_id } = (body as unknown) as { [id: string]: string };
+    // Fix after Bolt 3.4
+    const { trigger_id: triggerId } = body as unknown as { [id: string]: string };
     logger.error('Something went wrong trying to post to a channel: ', error);
     try {
-      await app.client.views.open({
-        trigger_id,
-        token: env.slackToken,
+      await client.views.open({
+        trigger_id: triggerId,
         view: {
           type: 'modal',
           title: {
