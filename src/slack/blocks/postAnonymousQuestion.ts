@@ -18,7 +18,7 @@ export function getPostAnonymousQuestionModalBlocks(): KnownBlock[] {
     },
     element: {
       type: 'channels_select',
-      action_id: postAnonymousQuestionModalInputIds.channelId
+      action_id: postAnonymousQuestionModalInputIds.channelId,
     },
   };
   const questionBlock: InputBlock = {
@@ -33,7 +33,7 @@ export function getPostAnonymousQuestionModalBlocks(): KnownBlock[] {
     },
     element: {
       type: 'plain_text_input',
-      action_id: postAnonymousQuestionModalInputIds.question
+      action_id: postAnonymousQuestionModalInputIds.question,
     },
   };
   return [channelSelectBlock, questionBlock];

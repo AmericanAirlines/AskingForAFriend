@@ -15,7 +15,7 @@ describe('slack app setup', () => {
   });
 
   it('adds a listener that ignores actions and logs debug info', async () => {
-    setupSlack((mockApp as unknown) as App);
+    setupSlack(mockApp as unknown as App);
     expect(mockApp.action).toBeCalledWith(/ignore.*/i, expect.anything());
     const [, ignoreActionHandler] = mockApp.action.mock.calls[0];
 

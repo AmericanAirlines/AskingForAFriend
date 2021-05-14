@@ -28,7 +28,7 @@ If you can answer this question, post a response in a thread!`;
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
   } catch (error) {
     // Fix after Bolt 3.4
-    const { trigger_id: triggerId } = (body as unknown) as { [id: string]: string };
+    const { trigger_id: triggerId } = body as unknown as { [id: string]: string };
     logger.error('Something went wrong trying to post to a channel: ', error);
     try {
       await client.views.open({
