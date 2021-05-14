@@ -34,7 +34,8 @@ If you can answer this question, post a response in a thread!`;
       token: env.slackToken,
       channel,
       user: body.user.id,
-      text: `:warning: You won't be notified automatically when someone replies to this question. To get notifications from replies, follow the thread:
+      text: `:warning: You won't be notified automatically when someone replies to this question. 
+      To get notifications from replies, follow the thread:
       :one: Hover over the message (mobile app: tap the message)
       :two: Click message options (three dots)
       :three: Select \`Follow thread\``,
