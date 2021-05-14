@@ -10,7 +10,7 @@ export const postReplyAnonymously: Middleware<SlackShortcutMiddlewareArgs<Messag
 }) => {
   void ack();
   try {
-    const originalPost = shortcut.message.text;
+    const originalPost = shortcut.message.text!;
     await client.views.open({
       trigger_id: shortcut.trigger_id,
       view: {
@@ -22,7 +22,7 @@ export const postReplyAnonymously: Middleware<SlackShortcutMiddlewareArgs<Messag
           text: 'Respond Anonymously',
         },
         blocks: getPostAnonymousReplyViewBlocks(
-          (originalPost ?? '').length > 3000 ? `${originalPost?.substring(0, 2000)}...` : originalPost,
+          originalPost.length > 3000 ? `${originalPost.substring(0, 2000)}...` : originalPost,
         ),
         submit: {
           type: 'plain_text',
