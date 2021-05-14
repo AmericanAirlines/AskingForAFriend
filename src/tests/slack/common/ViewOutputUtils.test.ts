@@ -8,12 +8,14 @@ describe('view output utils', () => {
     const mockValue = 'a selected value';
     const mockViewOutput = {
       state: {
-        values: [
-          {
-            someFakeActionId: 'some fake value',
+        values: {
+          blockId: {
             [mockActionId]: mockValue,
           },
-        ],
+          blockId2: {
+            [mockActionId]: mockValue,
+          },
+        },
       },
     } as unknown as ViewOutput;
     const viewOutputUtils = new ViewOutputUtils(mockViewOutput);

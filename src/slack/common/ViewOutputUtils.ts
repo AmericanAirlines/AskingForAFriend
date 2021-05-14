@@ -19,12 +19,6 @@ export class ViewOutputUtils {
    * @param actionId The action_id for the input element, set in the view blocks
    */
   getInputValue(actionId: string): BlockInputValue | undefined {
-    for (const blockValue of Object.values(this.view.state.values)) {
-      if (blockValue[actionId] !== undefined) {
-        return blockValue[actionId];
-      }
-    }
-
-    return undefined;
+    return Object.values(this.view.state.values).find((input) => Boolean(input[actionId]))?.[actionId];
   }
 }
