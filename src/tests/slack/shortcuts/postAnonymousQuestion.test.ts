@@ -1,34 +1,63 @@
 import 'jest';
 import logger from '../../../logger';
-import { callbackIds } from '../../../slack/constants';
+import { postAnonymousQuestion } from '../../../slack/shortcuts/postAnonymousQuestion';
+import { makeMockShortcutMiddlewarePayload } from '../test-utils/makeMockMiddlewarePayload';
 
-jest.mock('../../../env');
-
-const triggerId = '1234';
-const mockShortcutPayload: any = {
-  type: 'shortcut',
-  team: { id: 'XXX', domain: 'XXX' },
-  user: { id: 'XXX', username: 'XXX', team_id: 'XXX' },
-  callback_id: callbackIds.postAnonymousQuestion,
-  trigger_id: triggerId,
-};
-
-// const viewsOpenSpy = jest.spyOn(app.client.views, 'open').mockImplementation();
 const loggerErrorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+const mockShortcutPayload = makeMockShortcutMiddlewarePayload({
+  ack: jest.fn(),
+  shortcut: {
+    trigger_id: 'open-me',
+  },
+  client: {
+    views: {
+      open: jest.fn(),
+    },
+    chat: {
+      postMessage: jest.fn(),
+    },
+  },
+});
 
 describe('ignore action listener', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  xit('handles the shortcut and opens a modal', async () => {
-    // expect(viewsOpenSpy).toBeCalled();
-    // const args = viewsOpenSpy.mock.calls[0][0];
-    // expect(args?.trigger_id).toEqual(triggerId);
+  it('handles the shortcut and opens a modal', async () => {
+    await postAnonymousQuestion(mockShortcutPayload as any);
+
+    expect(mockShortcutPayload.ack).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledWith(
+      expect.objectContaining({
+        trigger_id: mockShortcutPayload.shortcut.trigger_id,
+        view: expect.objectContaining({
+          type: 'modal',
+          title: expect.objectContaining({
+            text: 'Ask Question Anonymously',
+          }),
+          blocks: expect.arrayContaining([expect.anything()]),
+          submit: expect.objectContaining({
+            text: 'Ask Question',
+          }),
+        }),
+      }),
+    );
+    expect(loggerErrorSpy).not.toBeCalled();
   });
 
-  xit("logs an error if the modal can't be opened", async () => {
-    // expect(viewsOpenSpy).toBeCalled();
-    expect(loggerErrorSpy).toBeCalled();
+  it("logs an error if the modal can't be opened", async () => {
+    mockShortcutPayload.client.views.open.mockRejectedValueOnce(new Error('No thanks'));
+    await postAnonymousQuestion(mockShortcutPayload as any);
+
+    expect(mockShortcutPayload.ack).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledTimes(1);
+    expect(loggerErrorSpy).toBeCalledTimes(1);
+    expect(loggerErrorSpy).toBeCalledWith(
+      expect.stringContaining('Something went wrong publishing a view to Slack'),
+      expect.anything(),
+    );
   });
 });
