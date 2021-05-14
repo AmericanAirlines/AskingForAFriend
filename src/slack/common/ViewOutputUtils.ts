@@ -20,7 +20,7 @@ export class ViewOutputUtils {
    */
   getInputValue(actionId: string): BlockInputValue | undefined {
     for (const blockValue of Object.values(this.view.state.values)) {
-      if (blockValue[actionId]) {
+      if (blockValue[actionId] !== undefined) {
         return blockValue[actionId];
       }
     }
