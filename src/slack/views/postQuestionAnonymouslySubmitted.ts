@@ -10,11 +10,12 @@ export const postQuestionAnonymouslySubmitted: Middleware<SlackViewMiddlewareArg
   view,
   client,
 }) => {
+  void ack();
   try {
     const utils = new ViewOutputUtils(view);
 
-    const channel = utils.getInputValue(postAnonymousQuestionModalInputIds.channelId)?.selected_channel!;
-    const question = utils.getInputValue(postAnonymousQuestionModalInputIds.question)?.value!;
+    const channel = utils.getInputValue(postAnonymousQuestionModalInputIds.channelId)!.selected_channel!;
+    const question = utils.getInputValue(postAnonymousQuestionModalInputIds.question)!.value!;
 
     const text = `*_Someone has a question they'd like to ask!_* :thought_balloon: \n>${question}
 If you can answer this question, post a response in a thread!`;
@@ -23,11 +24,10 @@ If you can answer this question, post a response in a thread!`;
       channel,
       text,
     });
-    void ack();
 
     logger.info(`Question asked by ${body.user.name}/${body.user.id}: ${question}`);
   } catch (error) {
-    void ack();
+    // Fix after Bolt 3.4
     const { trigger_id: triggerId } = (body as unknown) as { [id: string]: string };
     logger.error('Something went wrong trying to post to a channel: ', error);
     try {

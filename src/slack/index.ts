@@ -1,10 +1,14 @@
 import { App } from '@slack/bolt';
-import actions from './actions';
+import logger from '../logger';
 import shortcuts from './shortcuts';
 import views from './views';
 
 export const setupSlack = (bolt: App) => {
-  actions(bolt);
+  bolt.action(/ignore.*/i, async ({ ack }) => {
+    logger.debug('Action ignored');
+    void ack();
+  });
+
   shortcuts(bolt);
   views(bolt);
 };

@@ -10,15 +10,15 @@ import { MockMiddlewarePayload } from '../types/MockMiddlewareTypes';
 export const makeMockActionMiddlewarePayload = <
   T extends MockMiddlewarePayload<SlackActionMiddlewareArgs<SlackAction>>
 >(
-    args: T,
-  ): T => args;
+  args: T,
+) => args;
 
 export const makeMockEventMiddlewarePayload = <T extends MockMiddlewarePayload<SlackEventMiddlewareArgs<string>>>(
   args: T,
-): T => args;
+) => args;
 
 export const makeMockViewMiddlewarePayload = <
   T extends MockMiddlewarePayload<SlackViewMiddlewareArgs<SlackViewAction>>
 >(
-    args: T,
-  ): T => args;
+  args: T,
+) => args;
