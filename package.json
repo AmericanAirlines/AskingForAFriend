@@ -6,7 +6,7 @@
     "dev": "npm-run-all -l build -p build:watch start:watch",
     "start": "node dist/index.js",
     "start:watch": "nodemon -w dist -w .env -e js dist/index.js",
-    "build": "tsc -p src/ --pretty",
+    "build": "tsc -p tsconfig.build.json --pretty",
     "build:watch": "npm run build -- -w",
     "test": "jest",
     "test:coverage": "npm run test -- --coverage",
@@ -22,51 +22,38 @@
   "engines": {
     "node": ">=12.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "run-s build lint:staged test:coverage"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,ts}": [
-      "npm run prettier:fix",
-      "npm run lint:fix"
-    ]
-  },
   "nodemonConfig": {
     "delay": "400"
   },
   "dependencies": {
-    "@americanairlines/simple-env": "^1.0.2",
-    "@slack/bolt": "^2.1.1",
-    "@slack/types": "^1.7.0",
-    "@slack/web-api": "^5.10.0",
+    "@americanairlines/simple-env": "^1.0.4",
+    "@slack/bolt": "^3.3.0",
+    "@slack/types": "^2.0.0",
+    "@slack/web-api": "^6.2.3",
     "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
-    "winston": "^3.2.1"
+    "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.0",
-    "@types/jest": "^25.2.3",
-    "@types/node": "^14.0.11",
-    "@types/supertest": "^2.0.9",
-    "@types/winston": "^2.4.4",
-    "@typescript-eslint/eslint-plugin": "^3.1.0",
-    "@typescript-eslint/parser": "^3.1.0",
-    "eslint": "^7.2.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.13.2",
-    "husky": "^4.2.5",
-    "jest": "^26.0.1",
-    "lint-staged": "^10.2.9",
-    "nodemon": "^2.0.4",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.0.3",
+    "@types/supertest": "^2.0.11",
+    "@typescript-eslint/eslint-plugin": "^4.23.0",
+    "@typescript-eslint/parser": "^4.23.0",
+    "eslint": "^7.26.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
-    "supertest": "^4.0.2",
-    "ts-jest": "^26.1.0",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.5"
+    "prettier": "^2.3.0",
+    "supertest": "^6.1.3",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   }
 }

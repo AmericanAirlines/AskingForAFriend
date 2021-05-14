@@ -1,5 +1,6 @@
 dist
 .DS_Store
+.idea
 
 # Logs
 logs
