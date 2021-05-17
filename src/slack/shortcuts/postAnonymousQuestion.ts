@@ -1,19 +1,17 @@
 /* eslint-disable camelcase */
 import { Middleware, SlackShortcutMiddlewareArgs, SlackShortcut } from '@slack/bolt';
 import logger from '../../logger';
-import { app } from '../../app';
 import { getPostAnonymousQuestionModalBlocks } from '../blocks/postAnonymousQuestion';
 import { callbackIds } from '../constants';
-import { env } from '../../env';
 
 export const postAnonymousQuestion: Middleware<SlackShortcutMiddlewareArgs<SlackShortcut>> = async ({
   shortcut,
   ack,
+  client,
 }) => {
-  ack();
+  void ack();
   try {
-    await app.client.views.open({
-      token: env.slackToken,
+    await client.views.open({
       trigger_id: shortcut.trigger_id,
       view: {
         callback_id: callbackIds.postQuestionAnonymouslySubmitted,

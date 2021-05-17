@@ -1,27 +1,24 @@
-/* eslint-disable camelcase */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/first */
 import 'jest';
-import supertest from 'supertest';
-import { createHash } from '../utils/slack';
 import logger from '../../../logger';
-import { receiver, app } from '../../../app';
-import { callbackIds } from '../../../slack/constants';
-import { env } from '../../../env';
+import { postAnonymousQuestion } from '../../../slack/shortcuts/postAnonymousQuestion';
+import { makeMockShortcutMiddlewarePayload } from '../test-utils/makeMockMiddlewarePayload';
 
-jest.mock('../../../env');
-
-const trigger_id = '1234';
-const mockShortcutPayload: any = {
-  type: 'shortcut',
-  team: { id: 'XXX', domain: 'XXX' },
-  user: { id: 'XXX', username: 'XXX', team_id: 'XXX' },
-  callback_id: callbackIds.postAnonymousQuestion,
-  trigger_id,
-};
-
-const viewsOpenSpy = jest.spyOn(app.client.views, 'open').mockImplementation();
 const loggerErrorSpy = jest.spyOn(logger, 'error').mockImplementation();
+
+const mockShortcutPayload = makeMockShortcutMiddlewarePayload({
+  ack: jest.fn(),
+  shortcut: {
+    trigger_id: 'open-me',
+  },
+  client: {
+    views: {
+      open: jest.fn(),
+    },
+    chat: {
+      postMessage: jest.fn(),
+    },
+  },
+});
 
 describe('ignore action listener', () => {
   beforeEach(() => {
@@ -29,36 +26,38 @@ describe('ignore action listener', () => {
   });
 
   it('handles the shortcut and opens a modal', async () => {
-    const timestamp = new Date().valueOf();
-    const signature = createHash(mockShortcutPayload, timestamp, env.slackSigningSecret);
-    await supertest(receiver.app)
-      .post('/slack/events')
-      .send(mockShortcutPayload)
-      .set({
-        'x-slack-signature': signature,
-        'x-slack-request-timestamp': timestamp,
-      })
-      .expect(200);
+    await postAnonymousQuestion(mockShortcutPayload as any);
 
-    expect(viewsOpenSpy).toBeCalled();
-    const args = viewsOpenSpy.mock.calls[0][0];
-    expect(args.trigger_id).toEqual(trigger_id);
+    expect(mockShortcutPayload.ack).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledWith(
+      expect.objectContaining({
+        trigger_id: mockShortcutPayload.shortcut.trigger_id,
+        view: expect.objectContaining({
+          type: 'modal',
+          title: expect.objectContaining({
+            text: 'Ask Question Anonymously',
+          }),
+          blocks: expect.arrayContaining([expect.anything()]),
+          submit: expect.objectContaining({
+            text: 'Ask Question',
+          }),
+        }),
+      }),
+    );
+    expect(loggerErrorSpy).not.toBeCalled();
   });
 
   it("logs an error if the modal can't be opened", async () => {
-    const timestamp = new Date().valueOf();
-    const signature = createHash(mockShortcutPayload, timestamp, env.slackSigningSecret);
-    viewsOpenSpy.mockRejectedValueOnce(null);
-    await supertest(receiver.app)
-      .post('/slack/events')
-      .send(mockShortcutPayload)
-      .set({
-        'x-slack-signature': signature,
-        'x-slack-request-timestamp': timestamp,
-      })
-      .expect(200);
+    mockShortcutPayload.client.views.open.mockRejectedValueOnce(new Error('No thanks'));
+    await postAnonymousQuestion(mockShortcutPayload as any);
 
-    expect(viewsOpenSpy).toBeCalled();
-    expect(loggerErrorSpy).toBeCalled();
+    expect(mockShortcutPayload.ack).toBeCalledTimes(1);
+    expect(mockShortcutPayload.client.views.open).toBeCalledTimes(1);
+    expect(loggerErrorSpy).toBeCalledTimes(1);
+    expect(loggerErrorSpy).toBeCalledWith(
+      expect.stringContaining('Something went wrong publishing a view to Slack'),
+      expect.anything(),
+    );
   });
 });
