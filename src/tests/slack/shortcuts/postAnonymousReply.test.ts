@@ -1,7 +1,7 @@
 import 'jest';
 import logger from '../../../logger';
 import { makeMockMessageShortcutMiddlewarePayload } from '../../test-utils/makeMockMiddlewarePayload';
-import { postReplyAnonymously } from '../../../slack/shortcuts/postReplyAnonymously';
+import { postAnonymousReply } from '../../../slack/shortcuts/postAnonymousReply';
 
 jest.mock('../../../env');
 
@@ -81,7 +81,7 @@ describe('postQuestionAnonymously view submission listener', () => {
   });
 
   it('successfully opens modal with a input field asking for their reply', async () => {
-    await postReplyAnonymously(mockShortcutPayload as any);
+    await postAnonymousReply(mockShortcutPayload as any);
 
     expect(mockShortcutPayload.client.views.open).toBeCalled();
     expect(mockShortcutPayload.client.views.open).toBeCalledWith(
@@ -100,7 +100,7 @@ describe('postQuestionAnonymously view submission listener', () => {
   });
 
   it('successfully opens modal with a input field asking for their reply with large original post', async () => {
-    await postReplyAnonymously(mockLargeShortcutPayload as any);
+    await postAnonymousReply(mockLargeShortcutPayload as any);
 
     expect(mockLargeShortcutPayload.client.views.open).toBeCalled();
     expect(mockLargeShortcutPayload.client.views.open).toBeCalledWith(
@@ -119,7 +119,7 @@ describe('postQuestionAnonymously view submission listener', () => {
   });
 
   it('successfully opens modal with a input field asking for their reply no original post', async () => {
-    await postReplyAnonymously(mockEmptyOriginalPostPayload as any);
+    await postAnonymousReply(mockEmptyOriginalPostPayload as any);
 
     expect(mockEmptyOriginalPostPayload.client.views.open).toBeCalled();
     expect(mockEmptyOriginalPostPayload.client.views.open).toBeCalledWith(
@@ -139,7 +139,7 @@ describe('postQuestionAnonymously view submission listener', () => {
 
   it("multiple errors are logged when the modal can't be opened", async () => {
     mockShortcutPayload.client.views.open.mockRejectedValueOnce(null);
-    await postReplyAnonymously(mockShortcutPayload as any);
+    await postAnonymousReply(mockShortcutPayload as any);
 
     expect(loggerErrorSpy).toBeCalledTimes(1);
   });

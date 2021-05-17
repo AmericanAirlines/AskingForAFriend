@@ -3,7 +3,7 @@ import logger from '../../logger';
 import { callbackIds } from '../constants';
 import { getPostAnonymousReplyViewBlocks } from '../blocks/postAnonymousReply';
 
-export const postReplyAnonymously: Middleware<SlackShortcutMiddlewareArgs<MessageShortcut>> = async ({
+export const postAnonymousReply: Middleware<SlackShortcutMiddlewareArgs<MessageShortcut>> = async ({
   shortcut,
   ack,
   client,
