@@ -32,10 +32,11 @@ Before being able to run the app locally, you'll need to create a Slack app and 
     - `chat:write`
     - `chat:write.public`
     - `im:write`
-  - Using the sidebar, navigate to the "_App Home_"
-    - Scroll to "_Your App's Presence in Slack" and click "_Edit_" next to "_App Display Name_" (using `Asking for a Friend` for the name and `asking-for-a-friend` for the username is recommended)
-    - We also recommend enabling "Always Show My Bot as Online"
-    - Finally, in the _Show Tabs_ section, disable the _Messages Tab_
+    
+- Using the sidebar, navigate to the "_App Home_"
+  - Scroll to "_Your App's Presence in Slack" and click "_Edit_" next to "_App Display Name_" (using `Asking for a Friend` for the name and `asking-for-a-friend` for the username is recommended)
+  - We also recommend enabling "Always Show My Bot as Online"
+  - Finally, in the _Show Tabs_ section, disable the _Messages Tab_
   
 - Using the sidebar, navigate to the "_Basic Information_", scroll down, copy the `Signing Secret` value and use it to replace the `SLACK_SIGNING_SECRET` value in your `.env`
 - Using the sidebar, navigate to the "_Install App_" and click "Reinstall App"
@@ -51,7 +52,7 @@ Once the above steps are finished, you'll need to connect your Slack app to your
 - Under Shortcuts, chose "_Create New Shortcut_", chose "_Message_", and use the following values:
     - Name: `Reply anonymously`
     - Short Description: `Reply anonymously to a post`
-    - Callback ID: `postReplyAnonymously`
+    - Callback ID: `postAnonymousReply`
   - Click "_Save Changes_" at the bottom
 - After clicking save, you should see a banner at the top of the page suggesting you reinstall the app; click `Reinstall`
 
