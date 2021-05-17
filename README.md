@@ -22,7 +22,7 @@ Project environment variables should first be defined in `.env.sample` without r
 This project is reliant on the installation of the following dependencies:
 - [Node (LTS)](https://nodejs.org/en/download/) (v12.0+)
 
-After downlodaing the dependencies above, install all NPM dependencies by running `npm i`.
+After downloading the dependencies above, install all NPM dependencies by running `npm i`.
 
 ### Create a Slack App
 Before being able to run the app locally, you'll need to create a Slack app and configure it with the appropriate permissions:
@@ -31,10 +31,13 @@ Before being able to run the app locally, you'll need to create a Slack app and 
   - Under '_Scopes_' --> '_Bot Token Scopes_' click `Add an OAuth Scope` and add the following scope:
     - `chat:write`
     - `chat:write.public`
+    - `im:write`
+    
 - Using the sidebar, navigate to the "_App Home_"
   - Scroll to "_Your App's Presence in Slack" and click "_Edit_" next to "_App Display Name_" (using `Asking for a Friend` for the name and `asking-for-a-friend` for the username is recommended)
   - We also recommend enabling "Always Show My Bot as Online"
   - Finally, in the _Show Tabs_ section, disable the _Messages Tab_
+  
 - Using the sidebar, navigate to the "_Basic Information_", scroll down, copy the `Signing Secret` value and use it to replace the `SLACK_SIGNING_SECRET` value in your `.env`
 - Using the sidebar, navigate to the "_Install App_" and click "Reinstall App"
   - Once finished, copy the `Bot User OAuth Access Token` value and use it to replace the `SLACK_TOKEN` value in your `.env`
@@ -46,6 +49,10 @@ Once the above steps are finished, you'll need to connect your Slack app to your
     - Name: `Ask question anonymously`
     - Short Description: `Posts an anonymous question in the current channel`
     - Callback ID: `postAnonymousQuestion`
+- Under Shortcuts, chose "_Create New Shortcut_", chose "_Message_", and use the following values:
+    - Name: `Reply anonymously`
+    - Short Description: `Reply anonymously to a post`
+    - Callback ID: `postAnonymousReply`
   - Click "_Save Changes_" at the bottom
 - After clicking save, you should see a banner at the top of the page suggesting you reinstall the app; click `Reinstall`
 

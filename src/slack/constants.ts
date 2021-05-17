@@ -7,4 +7,6 @@ export const actionIds = {
 export const callbackIds = {
   postAnonymousQuestion: 'postAnonymousQuestion',
   postQuestionAnonymouslySubmitted: 'postQuestionAnonymouslySubmitted',
+  postAnonymousReply: 'postAnonymousReply',
+  postAnonymousReplySubmitted: 'postAnonymousReplySubmitted',
 };
