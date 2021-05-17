@@ -29,6 +29,7 @@ const mockViewPayload = makeMockViewMiddlewarePayload({
     },
     chat: {
       postMessage: jest.fn(),
+      postEphemeral: jest.fn(),
     },
   },
 });
@@ -56,6 +57,13 @@ describe('postQuestionAnonymously view submission listener', () => {
       expect.objectContaining({
         channel,
         text: expect.stringContaining(question),
+      }),
+    );
+    expect(mockViewPayload.client.chat.postEphemeral).toBeCalledTimes(1);
+    expect(mockViewPayload.client.chat.postEphemeral).toBeCalledWith(
+      expect.objectContaining({
+        channel,
+        text: expect.stringContaining('You won\'t be notified automatically'),
       }),
     );
     expect(loggerInfoSpy).toBeCalledTimes(1);
