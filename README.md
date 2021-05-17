@@ -49,7 +49,7 @@ Once the above steps are finished, you'll need to connect your Slack app to your
     - Name: `Ask question anonymously`
     - Short Description: `Posts an anonymous question in the current channel`
     - Callback ID: `postAnonymousQuestion`
-- Under Shortcuts, chose "_Create New Shortcut_", chose "_Message_", and use the following values:
+  - Under Shortcuts, chose "_Create New Shortcut_", chose "_Message_", and use the following values:
     - Name: `Reply anonymously`
     - Short Description: `Reply anonymously to a post`
     - Callback ID: `postAnonymousReply`
