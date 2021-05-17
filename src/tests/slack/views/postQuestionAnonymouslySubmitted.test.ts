@@ -63,7 +63,7 @@ describe('postQuestionAnonymously view submission listener', () => {
     expect(mockViewPayload.client.chat.postEphemeral).toBeCalledWith(
       expect.objectContaining({
         channel,
-        text: expect.stringContaining('You won\'t be notified automatically'),
+        text: expect.stringContaining("You won't be notified automatically"),
       }),
     );
     expect(loggerInfoSpy).toBeCalledTimes(1);
