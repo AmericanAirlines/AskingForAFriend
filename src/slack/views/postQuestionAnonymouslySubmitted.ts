@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Middleware, ViewSubmitAction, SlackViewMiddlewareArgs } from '@slack/bolt';
 import logger from '../../logger';
 import { ViewOutputUtils } from '../common/ViewOutputUtils';

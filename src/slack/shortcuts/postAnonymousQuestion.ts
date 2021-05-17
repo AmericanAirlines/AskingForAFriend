@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Middleware, SlackShortcutMiddlewareArgs, SlackShortcut } from '@slack/bolt';
 import logger from '../../logger';
 import { getPostAnonymousQuestionModalBlocks } from '../blocks/postAnonymousQuestion';
