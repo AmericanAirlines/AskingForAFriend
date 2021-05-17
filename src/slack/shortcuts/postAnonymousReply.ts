@@ -15,7 +15,7 @@ export const postAnonymousReply: Middleware<SlackShortcutMiddlewareArgs<MessageS
       trigger_id: shortcut.trigger_id,
       view: {
         private_metadata: JSON.stringify({ message_ts: shortcut.message_ts, channel: shortcut.channel }),
-        callback_id: callbackIds.postReplyAnonymouslySubmitted,
+        callback_id: callbackIds.postAnonymousReplySubmitted,
         type: 'modal',
         title: {
           type: 'plain_text',

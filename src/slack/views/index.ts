@@ -6,5 +6,5 @@ import { postQuestionAnonymouslySubmitted } from './postQuestionAnonymouslySubmi
 export default function views(bolt: App): void {
   // Register all action listeners
   bolt.view(callbackIds.postQuestionAnonymouslySubmitted, postQuestionAnonymouslySubmitted);
-  bolt.view(callbackIds.postReplyAnonymouslySubmitted, postAnonymousReplySubmitted);
+  bolt.view(callbackIds.postAnonymousReplySubmitted, postAnonymousReplySubmitted);
 }
