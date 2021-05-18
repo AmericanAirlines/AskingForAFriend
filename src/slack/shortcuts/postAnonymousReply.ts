@@ -10,15 +10,13 @@ export const postAnonymousReply: Middleware<SlackShortcutMiddlewareArgs<MessageS
 }) => {
   void ack();
   try {
-    const details = await
-      client.conversations.info({
-        channel: shortcut.channel.id,
-      });
+    const details = await client.conversations.info({
+      channel: shortcut.channel.id,
+    });
 
     if (details.channel!.is_private) {
       throw new Error('Channel is private');
     }
-
   } catch (error) {
     await client.views.open({
       trigger_id: shortcut.trigger_id,

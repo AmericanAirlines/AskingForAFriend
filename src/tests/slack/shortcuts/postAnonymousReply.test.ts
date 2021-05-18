@@ -140,7 +140,7 @@ describe('postQuestionAnonymously view submission listener', () => {
     );
   });
 
-  it('errors are logged when the modal can\'t be opened', async () => {
+  it("errors are logged when the modal can't be opened", async () => {
     mockShortcutPayload.client.views.open.mockRejectedValueOnce(null);
     await postAnonymousReply(mockShortcutPayload as any);
 
