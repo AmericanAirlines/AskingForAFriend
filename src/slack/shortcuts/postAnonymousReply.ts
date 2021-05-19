@@ -10,20 +10,18 @@ export const postAnonymousReply: Middleware<SlackShortcutMiddlewareArgs<MessageS
 }) => {
   void ack();
   try {
-    const originalPost = shortcut.message.text!;
+    const { text, ts, thread_ts: threadTs } = shortcut.message;
     await client.views.open({
       trigger_id: shortcut.trigger_id,
       view: {
-        private_metadata: JSON.stringify({ message_ts: shortcut.message_ts, channel: shortcut.channel }),
+        private_metadata: JSON.stringify({ message_ts: threadTs || ts, channel: shortcut.channel }),
         callback_id: callbackIds.postAnonymousReplySubmitted,
         type: 'modal',
         title: {
           type: 'plain_text',
           text: 'Respond Anonymously',
         },
-        blocks: getPostAnonymousReplyViewBlocks(
-          originalPost.length > 3000 ? `${originalPost.substring(0, 2000)}...` : originalPost,
-        ),
+        blocks: getPostAnonymousReplyViewBlocks(text!.length > 3000 ? `${text!.substring(0, 2000)}...` : text),
         submit: {
           type: 'plain_text',
           text: 'Reply Anonymously',
