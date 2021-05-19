@@ -42,7 +42,7 @@ export const postAnonymousReplySubmitted: Middleware<SlackViewMiddlewareArgs<Vie
       channel: id,
       thread_ts: messageTs,
       blocks: replyContext,
-      text: ' ',
+      text: reply,
     });
 
     logger.info(`response by ${body.user.name}/${body.user.id}}: ${reply}`);
