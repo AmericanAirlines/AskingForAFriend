@@ -10,6 +10,37 @@ export const postAnonymousReply: Middleware<SlackShortcutMiddlewareArgs<MessageS
 }) => {
   void ack();
   try {
+    const details = await client.conversations.info({
+      channel: shortcut.channel.id,
+    });
+
+    if (details.channel!.is_private) {
+      throw new Error('Channel is private');
+    }
+  } catch (error) {
+    await client.views.open({
+      trigger_id: shortcut.trigger_id,
+      view: {
+        type: 'modal',
+        title: {
+          type: 'plain_text',
+          text: 'Uh oh...',
+        },
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: `You can only reply anonymously to posts made in public channels. Sorry about that!`,
+            },
+          },
+        ],
+      },
+    });
+    return;
+  }
+
+  try {
     const { text, ts, thread_ts: threadTs } = shortcut.message;
     await client.views.open({
       trigger_id: shortcut.trigger_id,

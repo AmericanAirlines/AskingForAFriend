@@ -31,7 +31,7 @@ Before being able to run the app locally, you'll need to create a Slack app and 
   - Under '_Scopes_' --> '_Bot Token Scopes_' click `Add an OAuth Scope` and add the following scope:
     - `chat:write`
     - `chat:write.public`
-    - `im:write`
+    - `channels:read`
     
 - Using the sidebar, navigate to the "_App Home_"
   - Scroll to "_Your App's Presence in Slack" and click "_Edit_" next to "_App Display Name_" (using `Asking for a Friend` for the name and `asking-for-a-friend` for the username is recommended)

@@ -18,6 +18,7 @@ const mockShortcutPayload = makeMockMessageShortcutMiddlewarePayload({
     views: {
       open: jest.fn(),
     },
+    conversations: { info: jest.fn().mockResolvedValue({ channel: { is_private: false } }) },
   },
   shortcut: {
     message_ts: '123',
@@ -41,6 +42,7 @@ const mockLargeShortcutPayload = makeMockMessageShortcutMiddlewarePayload({
     views: {
       open: jest.fn(),
     },
+    conversations: { info: jest.fn().mockResolvedValue({ channel: { is_private: false } }) },
   },
   shortcut: {
     message_ts: '123',
@@ -64,6 +66,7 @@ const mockEmptyOriginalPostPayload = makeMockMessageShortcutMiddlewarePayload({
     views: {
       open: jest.fn(),
     },
+    conversations: { info: jest.fn().mockResolvedValue({ channel: { is_private: false } }) },
   },
   shortcut: {
     message_ts: '123',
@@ -137,10 +140,31 @@ describe('postQuestionAnonymously view submission listener', () => {
     );
   });
 
-  it("multiple errors are logged when the modal can't be opened", async () => {
+  it("errors are logged when the modal can't be opened", async () => {
     mockShortcutPayload.client.views.open.mockRejectedValueOnce(null);
     await postAnonymousReply(mockShortcutPayload as any);
 
     expect(loggerErrorSpy).toBeCalledTimes(1);
+  });
+
+  it('successfully opens error modal when the channel is private', async () => {
+    mockShortcutPayload.client.conversations.info.mockResolvedValue({ channel: { is_private: true } });
+
+    await postAnonymousReply(mockShortcutPayload as any);
+
+    expect(mockShortcutPayload.client.views.open).toBeCalled();
+    expect(mockShortcutPayload.client.views.open).toBeCalledWith(
+      expect.objectContaining({
+        view: expect.objectContaining({
+          blocks: expect.arrayContaining([
+            expect.objectContaining({
+              text: expect.objectContaining({
+                text: expect.stringContaining('in public channels. Sorry about that!'),
+              }),
+            }),
+          ]),
+        }),
+      }),
+    );
   });
 });
