@@ -30,7 +30,7 @@ If you can answer this question, post a response in a thread!`;
       text: `:warning: You won't be notified automatically when someone replies to this question. To get notifications from replies, follow the thread:
 - :one: Hover over the message (mobile app: tap the message)
 - :two: Click message options (three dots)
-- :three: Select \`Follow thread\`
+- :three: Select \`Get notified about new replies\`
 
 If you want to reply to a response, use the  \`Reply Anonymously\` message shortcut (click in message options and search under  \`More message shortcuts\`).`,
     });
