@@ -1,4 +1,7 @@
+import { config } from 'dotenv';
 import setEnv from '@americanairlines/simple-env';
+
+config();
 
 export const env = setEnv({
   optional: {

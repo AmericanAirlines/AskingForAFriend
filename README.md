@@ -1,5 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-![](https://github.com/AmericanAirlines/AskingForAFriend/workflows/Build/badge.svg?branch=main)
+[![Build](https://github.com/AmericanAirlines/AskingForAFriend/actions/workflows/build.yml/badge.svg)](https://github.com/AmericanAirlines/AskingForAFriend/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/AmericanAirlines/AskingForAFriend/branch/main/graph/badge.svg)](https://codecov.io/gh/AmericanAirlines/AskingForAFriend)
 
 # Asking for a Friend
@@ -62,6 +62,15 @@ settings:
 The best way to start the app and work on it is by using `yarn dev`, which will start the app and then restart the app whenever a TypeScript file changes. After modifying a non-Typescript file, restart the app by typing `rs` into the same terminal you ran `yarn dev` from and then hitting return.
 
 After the app starts, it will be accessible on `localhost:3000` (unless the port was modified via `.env`).
+
+#### Building and Running Docker Locally
+
+1. Install relevant dependencies
+1. Downloading [Docker Desktop](https://docs.docker.com/desktop/) and start it
+   - Optionally modify `Settings > Resources > Advanced` to provide more resources to Docker and speed up your build commands
+1. Run `yarn docker:build` from the root to build your image
+1. Run `yarn docker:run` to start your container
+1. Visit `localhost:3001` to use the app running in Docker
 
 # Contributing
 Interested in contributing to the project? Check out our [Contributing Guidelines](./.github/CONTRIBUTING.md).

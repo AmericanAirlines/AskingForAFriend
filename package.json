@@ -14,7 +14,9 @@
     "lint:fix": "yarn lint -- --fix",
     "lint:staged": "lint-staged",
     "prettier": "prettier -l \"src/**/*.ts\"",
-    "prettier:fix": "yarn prettier -- --write"
+    "prettier:fix": "yarn prettier -- --write",
+    "docker:build": "docker build . --tag asking-for-a-friend",
+    "docker:run": "docker rm -f asking-for-a-friend && docker run -p 3001:8080 --env-file .env --name asking-for-a-friend asking-for-a-friend"
   },
   "authors": [
     "Spencer Kaiser <spencer.kaiser@aa.com>"
@@ -30,8 +32,9 @@
     "@slack/bolt": "^3.14.0",
     "@slack/types": "^2.9.0",
     "@slack/web-api": "^6.9.1",
+    "@types/dotenv": "^8.2.0",
     "body-parser": "^1.19.0",
-    "dotenv": "^9.0.2",
+    "dotenv": "^15.0.1",
     "express": "^4.17.1",
     "winston": "^3.3.3"
   },
