@@ -639,7 +639,7 @@
 
 "@slack/bolt@^3.14.0":
   version "3.14.0"
-  resolved "https://packages.aa.com/artifactory/api/npm/npm-public/@slack/bolt/-/bolt-3.14.0.tgz#8b1d9c0e9e15aefbc7fa154bc5da19bb6b2173ef"
+  resolved "https://registry.yarnpkg.com/@slack/bolt/-/bolt-3.14.0.tgz#8b1d9c0e9e15aefbc7fa154bc5da19bb6b2173ef"
   integrity sha512-Q7QifLEruuXLQQh0H/JODuBSH0UoiQdMxR+g4aVNdJQemv91XyHgbxRZgGuH8Vi1rVrOyDSLS9czS5jwMh2ewQ==
   dependencies:
     "@slack/logger" "^4.0.0"
