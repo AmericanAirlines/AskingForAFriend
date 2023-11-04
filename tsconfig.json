@@ -3,7 +3,6 @@
     "module": "commonjs",
     "target": "es6",
     "moduleResolution": "node",
-    "incremental": true,
     "outDir": "dist",
     "esModuleInterop": true,
     "noImplicitAny": true,
@@ -16,5 +15,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["src/**/*.ts"]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
