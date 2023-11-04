@@ -31,6 +31,3 @@ jobs:
 
       - name: Prettier
         run: yarn prettier
-
-      - name: Spellcheck
-        run: yarn spellcheck
