@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { App, LogLevel, ExpressReceiver, AuthorizeResult } from '@slack/bolt';
 import { WebClient } from '@slack/web-api';
 import api from './api';
