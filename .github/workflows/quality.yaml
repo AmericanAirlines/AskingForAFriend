@@ -1,4 +1,4 @@
-name: Tests
+name: Code Quality
 
 on:
   push:
@@ -10,8 +10,8 @@ env:
   NODE_VERSION: 18
 
 jobs:
-  tests:
-    name: Tests & Code Coverage
+  checks:
+    name: Lint and Style
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,10 +26,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run Test Coverage
-        run: yarn test:coverage
+      - name: ESLint
+        run: yarn lint
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Prettier
+        run: yarn prettier

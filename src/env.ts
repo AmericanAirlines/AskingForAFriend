@@ -8,7 +8,7 @@ export const env = setEnv({
     slackLogLevel: 'SLACK_LOG_LEVEL',
   },
   required: {
-    slackToken: 'SLACK_TOKEN',
+    slackToken: 'SLACK_BOT_TOKEN',
     slackSigningSecret: 'SLACK_SIGNING_SECRET',
   },
 });

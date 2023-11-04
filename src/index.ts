@@ -10,7 +10,11 @@ async function start(): Promise<void> {
 }
 
 // Start the app
-start().catch((err) => {
-  logger.error('Something went wrong starting the app: ', err);
-  process.exit(1);
-});
+start()
+  .then(() => {
+    logger.info(`App is running on port ${port}`);
+  })
+  .catch((err) => {
+    logger.error('Something went wrong starting the app: ', err);
+    process.exit(1);
+  });
