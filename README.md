@@ -20,44 +20,48 @@ Project environment variables should first be defined in `.env.sample` without r
 
 ### Dependencies
 This project is reliant on the installation of the following dependencies:
-- [Node (LTS)](https://nodejs.org/en/download/) (v12.0+)
+- [Node (LTS)](https://nodejs.org/en/download/) (v18.0+)
 
-After downloading the dependencies above, install all NPM dependencies by running `npm i`.
+After downloading the dependencies above, install all dependencies by running `yarn`.
 
 ### Create a Slack App
 Before being able to run the app locally, you'll need to create a Slack app and configure it with the appropriate permissions:
 - Create an app on the [Slack API Site](https://api.slack.com/apps)
-- Using the sidebar, navigate to "_OAuth & Permissions_" and enable them
-  - Under '_Scopes_' --> '_Bot Token Scopes_' click `Add an OAuth Scope` and add the following scope:
-    - `chat:write`
-    - `chat:write.public`
-    - `channels:read`
-    
-- Using the sidebar, navigate to the "_App Home_"
-  - Scroll to "_Your App's Presence in Slack" and click "_Edit_" next to "_App Display Name_" (using `Asking for a Friend` for the name and `asking-for-a-friend` for the username is recommended)
-  - We also recommend enabling "Always Show My Bot as Online"
-  - Finally, in the _Show Tabs_ section, disable the _Messages Tab_
+- Use the following manifest and update with your local or cloud URL:
   
-- Using the sidebar, navigate to the "_Basic Information_", scroll down, copy the `Signing Secret` value and use it to replace the `SLACK_SIGNING_SECRET` value in your `.env`
-- Using the sidebar, navigate to the "_Install App_" and click "Reinstall App"
-  - Once finished, copy the `Bot User OAuth Access Token` value and use it to replace the `SLACK_TOKEN` value in your `.env`
+```yaml
+display_information:
+  name: Asking for a Friend
+  description: Helping our community ask questions without fear of being judged
+  background_color: "#004492"
+features:
+  bot_user:
+    display_name: Asking for a Friend
+    always_online: true
+  shortcuts:
+    - name: Ask question anonymously
+      type: global
+      callback_id: postAnonymousQuestion
+      description: Posts an anonymous question in the current channel
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+      - chat:write.public
+      - commands
+      - channels:read
+settings:
+  interactivity:
+    is_enabled: true
+    request_url: https://[YOUR-APP-URL]/slack/events
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
 
-Once the above steps are finished, you'll need to connect your Slack app to your app running locally. Follow the steps in the [Starting the App](#starting-the-app) section below. After the app is running, you can use [`ngrok`](https://ngrok.com) to create a publicly accessible URL. Copy that URL and head back to your app's settings:
-- Using the sidebar, navigate to "_Interactivity & Shortcuts_" and enable them
-  - For the `Request URL` field, use your app's URL and then append `/slack/events`
-  - Under Shortcuts, chose "_Create New Shortcut_", chose "_Global_", and use the following values:
-    - Name: `Ask question anonymously`
-    - Short Description: `Posts an anonymous question in the current channel`
-    - Callback ID: `postAnonymousQuestion`
-  - Under Shortcuts, chose "_Create New Shortcut_", chose "_Message_", and use the following values:
-    - Name: `Reply anonymously`
-    - Short Description: `Reply anonymously to a post`
-    - Callback ID: `postAnonymousReply`
-  - Click "_Save Changes_" at the bottom
-- After clicking save, you should see a banner at the top of the page suggesting you reinstall the app; click `Reinstall`
+```
 
 ### Starting the App
-The best way to start the app and work on it is by using `npm run dev`, which will start the app and then restart the app whenever a TypeScript file changes. After modifying a non-Typescript file, restart the app by typing `rs` into the same terminal you ran `npm run dev` from and then hitting return.
+The best way to start the app and work on it is by using `yarn dev`, which will start the app and then restart the app whenever a TypeScript file changes. After modifying a non-Typescript file, restart the app by typing `rs` into the same terminal you ran `yarn dev` from and then hitting return.
 
 After the app starts, it will be accessible on `localhost:3000` (unless the port was modified via `.env`).
 

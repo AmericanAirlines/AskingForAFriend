@@ -1,11 +1,4 @@
-import { ViewOutput } from '@slack/bolt';
-
-interface BlockInputValue {
-  value?: string;
-  selected_option?: { value: string };
-  selected_users?: string[];
-  selected_channel?: string;
-}
+import { ViewOutput, ViewStateValue } from '@slack/bolt';
 
 export class ViewOutputUtils {
   readonly view: ViewOutput;
@@ -18,7 +11,7 @@ export class ViewOutputUtils {
    * Returns the first input value with the given actionId
    * @param actionId The action_id for the input element, set in the view blocks
    */
-  getInputValue(actionId: string): BlockInputValue | undefined {
+  getInputValue(actionId: string): ViewStateValue | undefined {
     for (const blockValue of Object.values(this.view.state.values)) {
       if (blockValue[actionId]) {
         return blockValue[actionId];
